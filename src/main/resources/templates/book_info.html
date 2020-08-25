@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5">
+    <!-- th:each="book : ${books}">-->
+    <h1 th:text="${book.title}"/>
+    <h2 th:text="${book.author}"/>
+    <br>
+    <b>
+        Book's resume:
+    </b>
+    <a th:text="${book.resume}"/>
+    <br>
+    <a th:text="${book.fullText}"/>
+    <br>
+    <br>
+    <form th:action="'/book/'+${book.id}+'/delete'" align="right" method="post">
+        <a th:href="'/book/'+${book.id}+'/edit'" align="left" class="btn btn-success" th:text="'Edit book'"/>
+        <button class="btn btn-warning" type="submit" >Delete book</button>
+    </form>
+    <br>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

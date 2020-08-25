@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+
+<div class="container mt-5 mb-5">
+    <h1>Book editing</h1>
+    <!-- action="/edit" processing on the book/{id}/edit -->
+    <form method="post">
+        <input type="text" name="title" th:value="${book.title}" class="form-control"><br>
+        <input type="text" name="author" th:value="${book.author}" class="form-control"><br>
+        <textarea name="resume" th:text= "${book.resume}" class="form-control"></textarea><br>
+        <textarea name="fullText" th:text= "${book.fullText}" class="form-control"></textarea><br>
+        <button type="submit" class="btn btn-success">
+            Save changes
+        </button>
+        <a th:href="'/book/'+${book.id}" class="btn btn-warning">Cancel changes</a>
+    </form>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
