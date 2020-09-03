@@ -1,0 +1,21 @@
+.cont {
+    overflow:hidden;
+    font-size:2rem;
+}
+.cont, .front, .back {
+    width:700px;
+    height:200px;
+}
+.front, .back {
+    float:left;
+    transition: all 1.5s;
+}
+.cont:hover .front  {
+    margin-left:150px;
+}
+.back {
+    margin-left:-850px;
+}
+.cont:hover .back {
+    margin-left:-850px;
+}
