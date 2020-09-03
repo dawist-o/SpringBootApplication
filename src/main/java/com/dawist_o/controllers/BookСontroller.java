@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import javax.swing.text.html.HTMLDocument;
+import java.util.*;
 
 @Controller
 public class BookСontroller {
@@ -23,7 +23,10 @@ public class BookСontroller {
     public String blog(Model model) {
         model.addAttribute("title", "Books");
         Iterable<Book> books = bookRepo.findAll();
-        model.addAttribute("books", books);
+        ArrayList<Book> booksArray=new ArrayList<>();
+        books.forEach(booksArray::add);
+        Collections.reverse(booksArray);
+        model.addAttribute("books", booksArray);
         return "books";
     }
 
@@ -54,7 +57,6 @@ public class BookСontroller {
         return "book_info";
     }
 
-    //can be made with GetMapping and /form in book_info.html file
     @PostMapping("/book/{id}/delete")
     public String bookDelete(@PathVariable(value = "id") long id, Model model) {
         if (!bookRepo.existsById(id)) return "redirect:/books";
