@@ -1,6 +1,9 @@
 package com.dawist_o.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,18 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@NoArgsConstructor
 @Data // creates setters, getters and toString automatically
 public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    private String title;
-    private String author;
-    private String resume;
-    private String fullText;
-    private int views;
 
     public Book(String title, String author, String resume, String fullText, int views) {
         this.title = title;
@@ -29,6 +23,13 @@ public class Book {
         this.views = views;
     }
 
-    public Book() {
-    }
+    private String title;
+    private String author;
+    private String resume;
+    private String fullText;
+    private int views;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 }
