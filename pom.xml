@@ -11,7 +11,7 @@
 	<groupId>com.dawist_o</groupId>
 	<artifactId>SpringLerning</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringLerning</name>
+	<name>SpringLearning</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
