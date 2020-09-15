@@ -1,8 +1,9 @@
 package com.dawist_o.repository;
 
 import com.dawist_o.model.Book;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-
-public interface BookRepo extends CrudRepository<Book, Long> {
+@Repository
+public interface BookRepo extends JpaRepository<Book, Long> {
 }
