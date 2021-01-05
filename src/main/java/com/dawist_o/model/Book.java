@@ -1,35 +1,41 @@
 package com.dawist_o.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+
 
 @Entity
+@Table(name = "books")
 @NoArgsConstructor
 @Data // creates setters, getters and toString automatically
 public class Book {
 
-    public Book(String title, String author, String resume, String fullText, int views) {
+    public Book(Author author, String fulltext, String title, String resume) {
+        this(author,fulltext,title,resume,0);
+    }
+
+    public Book(Author author, String fulltext, String title, String resume, int views) {
+        this.fulltext = fulltext;
         this.title = title;
         this.author = author;
         this.resume = resume;
-        this.fullText = fullText;
         this.views = views;
     }
 
+    @Column(name = "full_text")
+    private String fulltext;
     private String title;
-    private String author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private Author author;
     private String resume;
-    private String fullText;
     private int views;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 }

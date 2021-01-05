@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/mycss.css" >
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5">
+    <h1 th:text="${title}"/>
+    <div class="cont" th:each="author : ${authors}">
+        <br>
+        <div class="front">
+            <h2 th:text="'Author : '+${author.name}"/>
+            <h3 th:text="'Biography : '+${author.biography}"/>
+        </div>
+        <a th:href="'/author/'+${author.id}">
+            <div class="back">
+                <p>Info</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="container" align="right">
+    <a href="/adding_author" class="btn btn-success" th:text="'Add author'"/>
+    <br>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>
