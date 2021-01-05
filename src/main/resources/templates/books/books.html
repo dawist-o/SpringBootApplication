@@ -4,7 +4,7 @@
     <title th:text="${title}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="public/mycss.css" >
+    <link rel="stylesheet" href="public/mycss.css">
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
@@ -12,10 +12,11 @@
 <div class="container mt-5">
     <h1 th:text="${title}"/>
     <div class="cont" th:each="book : ${books}">
+        <br>
         <div class="front">
-            <h1 th:text="'Title : '+${book.title}"/>
-            <h3 th:text="'Author : '+${book.author}"/>
-            <b th:text="'Views : '+${book.views}"/>
+            <h2 th:text="'Title : '+${book.title}"/>
+            <h3 th:text="'Author : '+${book.author.name}"/>
+            <h3 th:text="'Views : '+${book.views}"/>
         </div>
         <a th:href="'/book/'+${book.id}">
             <div class="back">
@@ -25,6 +26,10 @@
     </div>
 </div>
 
+<div class="container" align="right">
+    <a href="/adding_book" class="btn btn-success" th:text="'Add book'"/>
+    <br>
+</div>
 
 <div th:insert="blocks/footer :: footer"></div>
 

@@ -14,9 +14,9 @@
     <!-- action="/edit" processing on the book/{id}/edit -->
     <form method="post">
         <input type="text" name="title" th:value="${book.title}" class="form-control"><br>
-        <input type="text" name="author" th:value="${book.author}" class="form-control"><br>
-        <textarea name="resume" th:text= "${book.resume}" class="form-control"></textarea><br>
-        <textarea name="fullText" th:text= "${book.fullText}" class="form-control"></textarea><br>
+        <input type="text" name="author" th:value="${book.author.name}" class="form-control"><br>
+        <textarea name="resume" th:text="${book.resume}" class="form-control"></textarea><br>
+        <textarea name="fullText" th:text="${book.fulltext}" class="form-control"></textarea><br>
         <button type="submit" class="btn btn-success">
             Save changes
         </button>

@@ -8,16 +8,15 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container mt-5">
-    <!-- th:each="book : ${books}">-->
     <h1 th:text="${book.title}"/>
-    <h2 th:text="${book.author}"/>
+    <h2 th:text="${book.author.name}"/>
     <br>
     <b>
         Book's resume:
     </b>
     <a th:text="${book.resume}"/>
     <br>
-    <a th:text="${book.fullText}"/>
+    <a th:text="${book.fulltext}"/>
     <br>
     <br>
     <form th:action="'/book/'+${book.id}+'/delete'" align="right" method="post">
