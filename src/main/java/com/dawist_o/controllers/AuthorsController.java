@@ -74,7 +74,7 @@ public class AuthorsController {
         byId.setBiography(biography);
         authorService.save(byId);
 
-        return "redirect:/authors";
+        return "redirect:/author/"+id;
     }
 
 
