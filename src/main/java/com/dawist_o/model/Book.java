@@ -24,6 +24,7 @@ public class Book {
         this.resume = resume;
         this.views = views;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -38,20 +39,6 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "books_orders",
-            joinColumns = {@JoinColumn(name = "book_id")},
-            inverseJoinColumns = {@JoinColumn(name = "order_id")}
-    )
+    @ManyToMany(mappedBy = "books")
     private List<Order> orders;
-
-    public void addOrder(Order order) {
-        orders.add(order);
-        order.getBooks().add(this);
-    }
-
-    public void removeTag(Order order) {
-        orders.remove(order);
-        order.getBooks().remove(this);
-    }
 }
