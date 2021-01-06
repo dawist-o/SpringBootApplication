@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5 mb-5">
+    <h1>Adding book</h1>
+    <form action="/create_order" method="post">
+        <input type="text" name="customerName" placeholder="Enter your name" class="form-control"><br>
+        <textarea name="address" placeholder="Enter your address" class="form-control"></textarea><br>
+        <textarea name="comment" placeholder="Enter your comment" class="form-control"></textarea><br>
+        <textarea name="books" placeholder="Enter book's id" class="form-control"></textarea><br>
+        <button type="submit" class="btn btn-success">
+            Add new book
+        </button>
+    </form>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

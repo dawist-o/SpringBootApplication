@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5 mb-5">
+    <h1>order editing</h1>
+    <!-- action="/edit" processing on the order/{id}/edit -->
+    <form method="post">
+        <input type="text" name="customerName" th:value="${order.customerName}" class="form-control"><br>
+        <textarea name="address" th:text="${order.address}" class="form-control"></textarea><br>
+        <textarea name="comment" th:text="${order.comment}" class="form-control"></textarea><br>
+        <textarea name="books" th:text="${books}" class="form-control"></textarea><br>
+        <button type="submit" class="btn btn-success">
+            Save changes
+        </button>
+        <a th:href="'/order/'+${order.id}" class="btn btn-warning">Cancel changes</a>
+    </form>
+</div>
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>

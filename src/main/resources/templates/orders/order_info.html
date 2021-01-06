@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container mt-5">
+    <h1 th:text="${order.customerName}"/>
+    <h2 th:text="${order.address}"/>
+    <br>
+    <a th:text="${order.comment}"/>
+    <br>
+    <div class="cont" th:each="book : ${order.books}">
+        <div class="front">
+            <a th:text="${book.title}" th:href="'../book/'+${book.id}"/>
+        </div>
+    </div>
+    <br>
+    <form th:action="'/order/'+${order.id}+'/delete'" align="right" method="post">
+        <a th:href="'/order/'+${order.id}+'/edit'" align="center" class="btn btn-success" th:text="'Edit order'"/>
+        <button class="btn btn-warning" type="submit" >Delete order</button>
+    </form>
+    <br>
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+
+</body>
+</html>
