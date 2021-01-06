@@ -1,17 +1,22 @@
 package com.dawist_o.Service.BookService;
 
+import com.dawist_o.model.Author;
 import com.dawist_o.model.Book;
 
 import java.util.List;
 
 public interface BookServiceInterface {
-    Book getById(Long id);
+    Book getBookById(Long id);
 
     void save(Book book);
 
-    void deleteById(Long id);
+    void deleteBookById(Long id);
 
-    List<Book> getAll();
+    List<Book> getAllBooks();
 
-    boolean existsById(Long id);
+    boolean existsBookById(Long id);
+
+    List<Author> getAllAuthors();
+
+    Author getAuthorByNameOrCreateNew(String author);
 }
