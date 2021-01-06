@@ -13,7 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "authors")
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Author {
 
     @Id
