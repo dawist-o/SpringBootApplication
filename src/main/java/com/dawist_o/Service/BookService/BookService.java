@@ -23,18 +23,21 @@ public class BookService implements BookServiceInterface {
     private AuthorDao authorDao;
 
     @Override
-    public List<Author> getAllAuthors(){
+    public List<Author> getAllAuthors() {
+        log.info("In BookService method getAllAuthors: ");
         return authorDao.findAll();
     }
 
     @Override
-    public Author getAuthorByNameOrCreateNew(String author){
+    public Author getAuthorByNameOrCreateNew(String author) {
         Author authorByName = authorDao.getByName(author);
+        log.info("In BookService method getAuthorByNameOrCreateNew: " + author);
         if (authorByName == null) {
             authorByName = new Author(author.trim(), "");
             authorDao.save(authorByName);
+            log.info("In BookService method getAuthorByNameOrCreateNew new Author with name: " + author + " created");
         }
-        return  authorByName;
+        return authorByName;
     }
 
     @Override
