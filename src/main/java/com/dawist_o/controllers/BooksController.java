@@ -7,7 +7,6 @@ import com.dawist_o.model.Author;
 import com.dawist_o.model.Book;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +26,7 @@ public class BooksController {
     @GetMapping("/books")
     public String books(Model model) {
         model.addAttribute("title", "Books");
-        List<Book> bookList = bookService.getAll();
+        List<Book> bookList = bookService.getAllBooks();
         Collections.reverse(bookList);
         model.addAttribute("books", bookList);
         return "books/books";
@@ -36,7 +35,7 @@ public class BooksController {
     @GetMapping("/adding_book")
     public String addingBook(Model model) {
         model.addAttribute("title", "Adding book");
-        List<Author> all = authorService.getAll();
+        List<Author> all = bookService.getAllAuthors();
         model.addAttribute("authors", all);
         return "books/adding_book";
     }
@@ -46,15 +45,8 @@ public class BooksController {
             , @RequestParam String resume, @RequestParam String fullText
             , Model model) {
 
-        Author authorByName = authorService.getByName(author);
-        Book newBook;
-
-        if (authorByName == null) {
-            authorByName = new Author(author.trim(), "");
-            authorService.save(authorByName);
-        }
-
-        newBook = new Book(authorByName, fullText, title, resume, 0);
+        Author authorByName = bookService.getAuthorByNameOrCreateNew(author);
+        Book newBook = new Book(authorByName, fullText, title, resume, 0);
         authorByName.addBook(newBook);
         bookService.save(newBook);
         return "redirect:/books";
@@ -62,9 +54,9 @@ public class BooksController {
 
     @GetMapping("/book/{id}")
     public String bookInfo(@PathVariable(value = "id") long id, Model model) {
-        if (!bookService.existsById(id)) return "redirect:/books";
+        if (!bookService.existsBookById(id)) return "redirect:/books";
 
-        Book bookForInfo = bookService.getById(id);
+        Book bookForInfo = bookService.getBookById(id);
         bookForInfo.setViews(bookForInfo.getViews() + 1);
         bookService.save(bookForInfo);
         model.addAttribute("book", bookForInfo);
@@ -73,17 +65,17 @@ public class BooksController {
 
     @PostMapping("/book/{id}/delete")
     public String bookDelete(@PathVariable(value = "id") long id, Model model) {
-        if (!bookService.existsById(id)) return "redirect:/books";
+        if (!bookService.existsBookById(id)) return "redirect:/books";
 
-        bookService.deleteById(id);
+        bookService.deleteBookById(id);
         return "redirect:/books";
     }
 
     @GetMapping("/book/{id}/edit")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String bookEdit(@PathVariable(value = "id") long id, Model model) {
-        if (!bookService.existsById(id)) return "redirect:/books";
-        Book bookForEdit = bookService.getById(id);
+        if (!bookService.existsBookById(id)) return "redirect:/books";
+        Book bookForEdit = bookService.getBookById(id);
         model.addAttribute("book", bookForEdit);
         model.addAttribute("title", "Book editing");
         return "books/book_edit";
@@ -93,7 +85,7 @@ public class BooksController {
     public String bookEditPost(@RequestParam String title, @RequestParam String author,
                                @RequestParam String resume, @RequestParam String fullText,
                                @PathVariable(value = "id") long id, Model model) {
-        Book editedBook = bookService.getById(id);
+        Book editedBook = bookService.getBookById(id);
         editedBook.setTitle(title);
         //TODO realise front-end part to change author
         //editedBook.setAuthor(author);
