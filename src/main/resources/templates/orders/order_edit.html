@@ -8,9 +8,7 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 
-<div class="container mt-5 mb-5">
-    <h1>order editing</h1>
-    <!-- action="/edit" processing on the order/{id}/edit -->
+<div class="container mt-5 mb-5"><h1>Order editing</h1>
     <form method="post">
         <input type="text" name="customerName" th:value="${order.customerName}" class="form-control"><br>
         <textarea name="address" th:text="${order.address}" class="form-control"></textarea><br>
