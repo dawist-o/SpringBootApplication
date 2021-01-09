@@ -2,12 +2,9 @@ package com.dawist_o.Service.AuthorService;
 
 import com.dawist_o.dao.AuthorDao.AuthorDao;
 import com.dawist_o.model.Author;
-import com.dawist_o.model.Book;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

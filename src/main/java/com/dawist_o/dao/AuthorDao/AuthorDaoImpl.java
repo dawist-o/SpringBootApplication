@@ -2,13 +2,8 @@ package com.dawist_o.dao.AuthorDao;
 
 
 import com.dawist_o.model.Author;
-import com.dawist_o.model.Book;
-import lombok.extern.log4j.Log4j;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.StatelessSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
