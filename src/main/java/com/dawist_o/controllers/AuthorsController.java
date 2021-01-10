@@ -24,13 +24,13 @@ public class AuthorsController {
         return "authors/authors";
     }
 
-    @GetMapping("/adding_author")
+    @GetMapping("/add_author")
     public String addingAuthor(Model model) {
         model.addAttribute("title", "Adding author");
         return "authors/adding_author";
     }
 
-    @PostMapping("/adding_author")
+    @PostMapping("/add_author")
     public String addingAuthor(@RequestParam String name, @RequestParam String biography, Model model) {
         Author author = new Author(name, biography);
         authorService.save(author);
@@ -64,8 +64,8 @@ public class AuthorsController {
     }
 
     @PostMapping("/author/{id}/edit")
-    public String editAuthorPost(@RequestParam String name, @RequestParam String biography
-            , @PathVariable(value = "id") long id, Model model) {
+    public String editAuthorPost(@RequestParam String name, @RequestParam String biography,
+                                 @PathVariable(value = "id") long id, Model model) {
         if (!authorService.existsById(id)) return "redirect:/authors";
 
         Author byId = authorService.getById(id);

@@ -35,8 +35,8 @@ public class OrdersController {
     }
 
     @PostMapping("/create_order")
-    public String createOrderPost(@RequestParam String customerName, @RequestParam String address
-            , @RequestParam String comment, @RequestParam String books) {
+    public String createOrderPost(@RequestParam String customerName, @RequestParam String address,
+                                  @RequestParam String comment, @RequestParam String books) {
         String[] bookIds = books.trim().split(" ");
         Order order = new Order(customerName, address, comment);
 
@@ -73,9 +73,9 @@ public class OrdersController {
     }
 
     @PostMapping("/order/{id}/edit")
-    public String editOrderPosr(@PathVariable(name = "id") Long id
-            , @RequestParam String customerName, @RequestParam String address
-            , @RequestParam String comment, @RequestParam String books) {
+    public String editOrderPosr(@PathVariable(name = "id") Long id, @RequestParam String customerName,
+                                @RequestParam String address, @RequestParam String comment,
+                                @RequestParam String books) {
 
         Order orderById = orderService.getOrderById(id);
         orderById.setCustomerName(customerName);

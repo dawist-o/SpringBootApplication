@@ -28,16 +28,16 @@ public class BooksController {
         return "books/books";
     }
 
-    @GetMapping("/adding_book")
+    @GetMapping("/add_book")
     public String addingBook(Model model) {
         model.addAttribute("title", "Adding book");
-        return "books/adding_book";
+        return "books/add_book";
     }
 
-    @PostMapping("/adding_book")
-    public String addingBookPost(@RequestParam String title, @RequestParam String author
-            , @RequestParam String resume, @RequestParam String fullText
-            , Model model) {
+    @PostMapping("/add_book")
+    public String addingBookPost(@RequestParam String title, @RequestParam String author,
+                                 @RequestParam String resume, @RequestParam String fullText,
+                                 Model model) {
 
         Author authorByName = bookService.getAuthorByNameOrCreateNew(author);
         Book newBook = new Book(authorByName, fullText, title, resume, 0);
