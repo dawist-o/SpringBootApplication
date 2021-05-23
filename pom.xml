@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dawist_o</groupId>
-	<artifactId>SpringLearning</artifactId>
+	<artifactId>SpringBootApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringLearning</name>
+	<name>SpringBootApplication</name>
 	<description>Demo SpringBoot project</description>
 
 	<properties>
