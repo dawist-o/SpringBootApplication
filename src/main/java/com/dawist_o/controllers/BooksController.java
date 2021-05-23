@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
+@RequestMapping(path="/book")
 public class BooksController {
 
+    private final BookService bookService;
+
     @Autowired
-    private BookService bookService;
+    public BooksController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
 
-    @GetMapping("/books")
+    @GetMapping("/all")
     public String books(Model model) {
         model.addAttribute("title", "Books");
         List<Book> bookList = bookService.getAllBooks();
@@ -28,13 +33,13 @@ public class BooksController {
         return "books/books";
     }
 
-    @GetMapping("/add_book")
+    @GetMapping("/add")
     public String addingBook(Model model) {
         model.addAttribute("title", "Adding book");
         return "books/add_book";
     }
 
-    @PostMapping("/add_book")
+    @PostMapping("/add")
     public String addingBookPost(@RequestParam String title, @RequestParam String author,
                                  @RequestParam String resume, @RequestParam String fullText,
                                  Model model) {
@@ -43,10 +48,10 @@ public class BooksController {
         Book newBook = new Book(authorByName, fullText, title, resume, 0);
         authorByName.addBook(newBook);
         bookService.save(newBook);
-        return "redirect:/books";
+        return "redirect:/book/all";
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/{id}")
     public String bookInfo(@PathVariable(value = "id") long id, Model model) {
         if (!bookService.existsBookById(id)) return "redirect:/books";
 
@@ -57,15 +62,15 @@ public class BooksController {
         return "books/book_info";
     }
 
-    @PostMapping("/book/{id}/delete")
+    @PostMapping("/{id}/delete")
     public String bookDelete(@PathVariable(value = "id") long id, Model model) {
         if (!bookService.existsBookById(id)) return "redirect:/books";
 
         bookService.deleteBookById(id);
-        return "redirect:/books";
+        return "redirect:/all";
     }
 
-    @GetMapping("/book/{id}/edit")
+    @GetMapping("/{id}/edit")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String bookEdit(@PathVariable(value = "id") long id, Model model) {
         if (!bookService.existsBookById(id)) return "redirect:/books";
@@ -75,7 +80,7 @@ public class BooksController {
         return "books/book_edit";
     }
 
-    @PostMapping("/book/{id}/edit")
+    @PostMapping("/{id}/edit")
     public String bookEditPost(@RequestParam String title, @RequestParam String author,
                                @RequestParam String resume, @RequestParam String fullText,
                                @PathVariable(value = "id") long id, Model model) {
