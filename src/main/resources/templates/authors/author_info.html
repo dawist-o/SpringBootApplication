@@ -13,7 +13,12 @@
     <b>
         Author's biography:
     </b>
+    <br>
     <a th:text="${author.biography}"/>
+    <br>
+    <b>
+        Author's books:
+    </b>
     <div class="cont" th:each="book : ${books}">
         <div class="front">
             <a th:text="${book.title}" th:href="'../book/'+${book.id}"/>
