@@ -10,7 +10,12 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container mt-5">
-    <h1 th:text="${title}"/>
+    <div style="display: flex; justify-content: space-between">
+        <h1 th:text="${title}"/>
+        <a type="button" class="btn btn-primary" href="add">Add book</a>
+        <br>
+    </div>
+
     <div class="cont" th:each="book : ${books}">
         <br>
         <div class="front">
@@ -24,11 +29,6 @@
             </div>
         </a>
     </div>
-</div>
-
-<div class="container" align="right">
-    <a href="/add_book" class="btn btn-success" th:text="'Add book'"/>
-    <br>
 </div>
 
 <div th:insert="blocks/footer :: footer"></div>
