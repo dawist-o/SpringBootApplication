@@ -13,8 +13,12 @@ import java.util.List;
 @Controller
 public class AuthorsController {
 
+    private final AuthorService authorService;
+
     @Autowired
-    private AuthorService authorService;
+    public AuthorsController(AuthorService authorService) {
+        this.authorService = authorService;
+    }
 
     @GetMapping("/authors")
     private String authors(Model model) {
@@ -31,7 +35,7 @@ public class AuthorsController {
     }
 
     @PostMapping("/add_author")
-    public String addingAuthor(@RequestParam String name, @RequestParam String biography, Model model) {
+    public String addingAuthor(@RequestParam String name, @RequestParam String biography) {
         Author author = new Author(name, biography);
         authorService.save(author);
         return "redirect:/authors";
@@ -65,7 +69,7 @@ public class AuthorsController {
 
     @PostMapping("/author/{id}/edit")
     public String editAuthorPost(@RequestParam String name, @RequestParam String biography,
-                                 @PathVariable(value = "id") long id, Model model) {
+                                 @PathVariable(value = "id") long id) {
         if (!authorService.existsById(id)) return "redirect:/authors";
 
         Author byId = authorService.getById(id);

@@ -14,11 +14,15 @@ import java.util.List;
 @Service
 public class OrderService implements OrderServiceInterface {
 
-    @Autowired
-    private OrderDao orderDao;
+    private final OrderDao orderDao;
+
+    private final BookDao bookDao;
 
     @Autowired
-    private BookDao bookDao;
+    public OrderService(OrderDao orderDao, BookDao bookDao) {
+        this.orderDao = orderDao;
+        this.bookDao = bookDao;
+    }
 
     @Override
     public Book getBookById(Long id) {

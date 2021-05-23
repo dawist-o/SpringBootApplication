@@ -16,11 +16,15 @@ import java.util.List;
 @Service
 public class BookService implements BookServiceInterface {
 
-    @Autowired
-    private BookDao bookDao;
+    private final BookDao bookDao;
+
+    private final AuthorDao authorDao;
 
     @Autowired
-    private AuthorDao authorDao;
+    public BookService(BookDao bookDao, AuthorDao authorDao) {
+        this.bookDao = bookDao;
+        this.authorDao = authorDao;
+    }
 
     @Override
     public List<Author> getAllAuthors() {

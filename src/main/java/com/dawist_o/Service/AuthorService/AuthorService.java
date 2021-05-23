@@ -12,8 +12,12 @@ import java.util.List;
 @Service
 public class AuthorService implements AuthorServiceInterface {
 
+    private final AuthorDao authorDao;
+
     @Autowired
-    private AuthorDao authorDao;
+    public AuthorService(AuthorDao authorDao) {
+        this.authorDao = authorDao;
+    }
 
     @Override
     public Author getById(Long id) {

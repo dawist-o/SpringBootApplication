@@ -17,8 +17,12 @@ import java.util.List;
 @Controller
 public class OrdersController {
 
+    private final OrderService orderService;
+
     @Autowired
-    private OrderService orderService;
+    public OrdersController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @GetMapping("/orders")
     public String getAllorders(Model model) {
