@@ -1,7 +1,7 @@
 package com.dawist_o.controllers;
 
 
-import com.dawist_o.Service.AuthorService.AuthorService;
+import com.dawist_o.service.AuthorService.AuthorService;
 import com.dawist_o.model.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

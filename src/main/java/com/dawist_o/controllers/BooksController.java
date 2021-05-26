@@ -1,7 +1,7 @@
 package com.dawist_o.controllers;
 
 
-import com.dawist_o.Service.BookService.BookService;
+import com.dawist_o.service.BookService.BookService;
 import com.dawist_o.model.Author;
 import com.dawist_o.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;

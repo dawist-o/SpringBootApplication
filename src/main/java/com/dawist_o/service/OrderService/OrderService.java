@@ -1,4 +1,4 @@
-package com.dawist_o.Service.OrderService;
+package com.dawist_o.service.OrderService;
 
 import com.dawist_o.dao.BookDao.BookDao;
 import com.dawist_o.dao.OrderDao.OrderDao;

@@ -1,4 +1,4 @@
-package com.dawist_o.Service.OrderService;
+package com.dawist_o.service.OrderService;
 
 import com.dawist_o.model.Book;
 import com.dawist_o.model.Order;

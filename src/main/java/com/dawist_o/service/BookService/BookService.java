@@ -1,4 +1,4 @@
-package com.dawist_o.Service.BookService;
+package com.dawist_o.service.BookService;
 
 
 import com.dawist_o.dao.AuthorDao.AuthorDao;
@@ -8,7 +8,6 @@ import com.dawist_o.model.Book;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

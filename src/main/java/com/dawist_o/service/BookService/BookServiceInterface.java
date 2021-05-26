@@ -1,4 +1,4 @@
-package com.dawist_o.Service.BookService;
+package com.dawist_o.service.BookService;
 
 import com.dawist_o.model.Author;
 import com.dawist_o.model.Book;
