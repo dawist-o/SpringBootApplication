@@ -21,6 +21,8 @@ target/
 *.idea
 !dataSources
 
+/.idea/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -33,3 +35,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/.idea/libraries/
