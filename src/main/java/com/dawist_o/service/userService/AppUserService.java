@@ -1,5 +1,7 @@
 package com.dawist_o.service.userService;
 
+import com.dawist_o.authentication.token.ConfirmationToken;
+import com.dawist_o.authentication.token.ConfirmationTokenService;
 import com.dawist_o.dao.appUser.AppUserRepository;
 import com.dawist_o.model.user.AppUser;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -18,8 +21,8 @@ public class AppUserService implements UserDetailsService {
             "user with email %s not found";
 
     private final AppUserRepository appUserRepository;
+    private final ConfirmationTokenService confirmationTokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -39,13 +42,16 @@ public class AppUserService implements UserDetailsService {
             throw new IllegalStateException("email already taken");
         }
 
-
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         //encode password for store in database
         appUser.setPassword(encodedPassword);
         appUserRepository.save(appUser);
 
         String token = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken =
+                new ConfirmationToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), appUser);
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
 
         return token;
     }
