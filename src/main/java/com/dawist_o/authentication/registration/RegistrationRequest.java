@@ -1,4 +1,4 @@
-package com.dawist_o.registration;
+package com.dawist_o.authentication.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
