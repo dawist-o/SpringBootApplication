@@ -18,7 +18,7 @@ public class AuthenticationController {
 
     @PostMapping("register")
     public String register(@RequestBody RegistrationRequest request) throws Exception {
-        String token = registrationService.register(request);
+        registrationService.register(request);
         return "redirect:login";
     }
 
@@ -38,24 +38,13 @@ public class AuthenticationController {
     public String loginError(Model model) {
         System.out.println("error");
         model.addAttribute("loginError", true);
-        return "login.html";
-    }
-
-    @PostMapping("login")
-    @ResponseBody
-    public String loginPost(@RequestBody RegistrationRequest request) throws Exception {
-        System.out.println("Post");
-        if (request == null)
-            throw new Exception("ew");
-        System.out.println(request);
-        return request.toString();
+        return "login";
     }
 
     @GetMapping("confirm")
-    public String confirmToken(Model model) {
-        System.out.println("error");
-        model.addAttribute("loginError", true);
-        return "login.html";
+    public String confirmToken(@RequestParam String token) {
+        registrationService.confirmToken(token);
+        return "redirect:/auth/login";
     }
 
 }
