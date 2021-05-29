@@ -27,26 +27,26 @@ public class AuthorService implements AuthorServiceInterface {
 
     @Override
     public Author getByName(String name) {
-        log.info("In  AuthorService method getByName: " + name);
+        log.info("In AuthorService method getByName: " + name);
         return authorDao.getByName(name);
     }
 
     @Override
     public void save(Author author) {
-        log.info("In  AuthorService method save: " + author);
+        log.info("In AuthorService method save: " + author);
         authorDao.save(author);
     }
 
     @Override
     public void deleteById(Long id) {
-        log.info("In  AuthorService method deleteByID: " + id);
+        log.info("In AuthorService method deleteByID: " + id);
         authorDao.deleteById(id);
     }
 
     @Override
     public List<Author> getAll() {
         List<Author> all = authorDao.findAll();
-        log.info("In  AuthorService method getAll: " + all);
+        log.info("In AuthorService method getAll: " + all);
         return all;
     }
 

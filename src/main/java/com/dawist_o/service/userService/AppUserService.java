@@ -45,10 +45,11 @@ public class AppUserService implements UserDetailsService {
             throw new IllegalStateException("email already taken");
         }
 
-        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         //encode password for store in database
+        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
         appUserRepository.save(appUser);
+        log.info("In AppUserService method signUpUser: " + appUser);
 
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken =
