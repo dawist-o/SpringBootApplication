@@ -5,6 +5,7 @@ import com.dawist_o.authentication.token.ConfirmationTokenService;
 import com.dawist_o.dao.appUser.AppUserRepository;
 import com.dawist_o.model.user.AppUser;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AppUserService implements UserDetailsService {
     private final static String USER_NOT_FOUND_MSG =
             "user with email %s not found";
@@ -26,6 +28,7 @@ public class AppUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        log.info("In AppUserService method loadUserByUsername: " + email);
         return appUserRepository
                 .findByEmail(email)
                 .orElseThrow(
@@ -54,5 +57,10 @@ public class AppUserService implements UserDetailsService {
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
         return token;
+    }
+
+    public int enableAppUser(String email) {
+        log.info("In AppUserService method enableUserEmail: " + email);
+        return appUserRepository.enableUserEmail(email);
     }
 }
