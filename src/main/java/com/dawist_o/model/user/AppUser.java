@@ -32,7 +32,8 @@ public class AppUser implements UserDetails {
     private String name;
     private String email;
     private String password;
-    private Boolean enabled = true;
+    private Boolean locked = false;
+    private Boolean enabled = false;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
@@ -61,7 +62,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
