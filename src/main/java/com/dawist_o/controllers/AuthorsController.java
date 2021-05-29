@@ -3,7 +3,8 @@ package com.dawist_o.controllers;
 
 import com.dawist_o.service.AuthorService.AuthorService;
 import com.dawist_o.model.Author;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,17 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class AuthorsController {
 
     private final AuthorService authorService;
 
-    @Autowired
-    public AuthorsController(AuthorService authorService) {
-        this.authorService = authorService;
-    }
-
     @GetMapping("/authors")
-    private String authors(Model model) {
+    public String authors(Model model) {
         model.addAttribute("title", "Authors");
         List<Author> all = authorService.getAll();
         model.addAttribute("authors", all);
@@ -29,12 +26,14 @@ public class AuthorsController {
     }
 
     @GetMapping("/add_author")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addingAuthor(Model model) {
         model.addAttribute("title", "Adding author");
         return "authors/adding_author";
     }
 
     @PostMapping("/add_author")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addingAuthor(@RequestParam String name, @RequestParam String biography) {
         Author author = new Author(name, biography);
         authorService.save(author);
@@ -52,12 +51,14 @@ public class AuthorsController {
     }
 
     @PostMapping("/author/{id}/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteAuthor(@PathVariable(value = "id") long id) {
         authorService.deleteById(id);
         return "redirect:/authors";
     }
 
     @GetMapping("/author/{id}/edit")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editAuthor(@PathVariable(value = "id") long id, Model model) {
         if (!authorService.existsById(id)) return "redirect:/authors";
 
@@ -68,6 +69,7 @@ public class AuthorsController {
     }
 
     @PostMapping("/author/{id}/edit")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editAuthorPost(@RequestParam String name, @RequestParam String biography,
                                  @PathVariable(value = "id") long id) {
         if (!authorService.existsById(id)) return "redirect:/authors";

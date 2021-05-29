@@ -6,6 +6,7 @@ import com.dawist_o.model.Author;
 import com.dawist_o.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +35,14 @@ public class BooksController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addingBook(Model model) {
         model.addAttribute("title", "Adding book");
         return "books/add_book";
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addingBookPost(@RequestParam String title, @RequestParam String author,
                                  @RequestParam String resume, @RequestParam String fullText,
                                  Model model) {
@@ -63,6 +66,7 @@ public class BooksController {
     }
 
     @PostMapping("/{id}/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String bookDelete(@PathVariable(value = "id") long id, Model model) {
         if (!bookService.existsBookById(id)) return "redirect:/books";
 
@@ -71,6 +75,7 @@ public class BooksController {
     }
 
     @GetMapping("/{id}/edit")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String bookEdit(@PathVariable(value = "id") long id, Model model) {
         if (!bookService.existsBookById(id)) return "redirect:/books";
@@ -81,6 +86,7 @@ public class BooksController {
     }
 
     @PostMapping("/{id}/edit")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String bookEditPost(@RequestParam String title, @RequestParam String author,
                                @RequestParam String resume, @RequestParam String fullText,
                                @PathVariable(value = "id") long id, Model model) {
