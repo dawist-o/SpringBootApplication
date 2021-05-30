@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Service
@@ -24,10 +25,7 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final MailSender mailService;
 
-    //TODO: make address injected from properties file
-    private static final String address = "http://localhost:8080/auth/confirm?token=";
-
-    public String register(RegistrationRequest request) {
+    public String register(HttpServletRequest httpRequest, RegistrationRequest request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail) {
@@ -40,11 +38,13 @@ public class RegistrationService {
                 request.getPass(),
                 AppUserRole.USER
         ));
-        String link = address + token;
-        mailService.send("vkoval2002@gmail.com", link);
-        System.out.println("address " + address);
 
-        return "works";
+        String address = httpRequest.getRequestURL().toString().replace(httpRequest.getRequestURI(), "");
+        String link = address + "/auth/confirm?token=" + token;
+        mailService.send(request.getEmail(), link);
+
+        log.info("In RegistrationService send mail with token: " + link);
+        return link;
     }
 
     public String confirmToken(String token) {

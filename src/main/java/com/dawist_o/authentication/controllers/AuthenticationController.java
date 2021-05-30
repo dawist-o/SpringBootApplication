@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/auth")
@@ -17,9 +19,11 @@ public class AuthenticationController {
     private final RegistrationService registrationService;
 
     @PostMapping("register")
-    public String register(@RequestBody RegistrationRequest request) throws Exception {
-        registrationService.register(request);
-        return "redirect:login";
+    public String register(HttpServletRequest httpRequest , @RequestBody RegistrationRequest request) throws Exception {
+        System.out.println(httpRequest.getRequestURL());
+        System.out.println("qweqw");
+        registrationService.register(httpRequest,request);
+        return "redirect:/auth/login";
     }
 
     @GetMapping("register")
