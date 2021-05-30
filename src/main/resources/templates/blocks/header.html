@@ -8,6 +8,7 @@
             <a class="p-2 text-dark" href="/orders">Orders</a>
             <a class="p-2 text-dark" href="/about">About</a>
         </nav>
-        <a class="btn btn-outline-primary" href="#">Sign up</a>
+        <a sec:authorize="!isAuthenticated()" class="btn btn-outline-primary" href="/auth/login">Sign in</a>
+        <a sec:authorize="isAuthenticated()" class="btn btn-outline-primary" href="/profile">Profile</a>
     </div>
 </div>

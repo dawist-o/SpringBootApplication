@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div class="container" align="right">
+<div sec:authorize="hasAuthority('ADMIN')" class="container" align="right">
     <a href="/add_author" class="btn btn-success" th:text="'Add author'"/>
     <br>
 </div>

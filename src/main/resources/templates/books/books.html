@@ -10,7 +10,7 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container mt-5">
-    <div style="display: flex; justify-content: space-between">
+    <div sec:authorize="hasAuthority('ADMIN')" style="display: flex; justify-content: space-between">
         <h1 th:text="${title}"/>
         <a type="button" class="btn btn-primary" href="add">Add book</a>
         <br>

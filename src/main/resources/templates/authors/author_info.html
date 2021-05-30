@@ -25,7 +25,7 @@
         </div>
     </div>
     <br>
-    <form th:action="'/author/'+${author.id}+'/delete'" align="right" method="post">
+    <form sec:authorize="hasAuthority('ADMIN')" th:action="'/author/'+${author.id}+'/delete'" align="right" method="post">
         <a th:href="'/author/'+${author.id}+'/edit'" align="center" class="btn btn-success" th:text="'Edit author'"/>
         <button class="btn btn-warning" type="submit" >Delete author</button>
     </form>
