@@ -3,6 +3,9 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+    whitelabel:
+      enabled: false
+    path: /error
 
 spring:
   datasource:
