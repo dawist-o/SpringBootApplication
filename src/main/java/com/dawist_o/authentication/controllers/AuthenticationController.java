@@ -20,8 +20,6 @@ public class AuthenticationController {
 
     @PostMapping("register")
     public String register(HttpServletRequest httpRequest , @RequestBody RegistrationRequest request) throws Exception {
-        System.out.println(httpRequest.getRequestURL());
-        System.out.println("qweqw");
         registrationService.register(httpRequest,request);
         return "redirect:/auth/login";
     }

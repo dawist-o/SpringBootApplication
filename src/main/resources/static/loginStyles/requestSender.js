@@ -1,22 +1,29 @@
 const form = document.getElementById("auth-form");
 
 function sendRequest(reguestUrl) {
-    var XHR = new XMLHttpRequest();
-    // Define what happens on successful data submission
-/*    XHR.addEventListener("load", function (event) {
-        alert(event.target.responseText);
-    });*/
-    // Define what happens in case of error
-    XHR.addEventListener("error", function (event) {
-        alert('Oops! Something went wrong.');
-    });
+    let allAreFilled = true;
+    document.getElementById("auth-form").querySelectorAll("[required]").forEach(function(i) {
+        if (!allAreFilled) return;
+        if (!i.value) allAreFilled = false;
+        console.log(i);
+    })
+    if (!allAreFilled) {
+        alert('Fill all the fields');
+        return;
+    }
 
-    var url = window.location.protocol + "//" + window.location.host + "/auth/" + reguestUrl;
-    console.log(url);
+    const password = document.getElementById('pass');
+    const passwordConfirm = document.getElementById('re_pass');
+    if(password.value != passwordConfirm.value){
+        alert('Repeated pass should equal main');
+        return;
+    }
+
+    const XHR = new XMLHttpRequest();
+    const url = window.location.protocol + "//" + window.location.host + "/auth/" + reguestUrl;
     XHR.open('POST', url, true);
     XHR.setRequestHeader('Content-Type', 'application/json');
-
-    var json = JSON.stringify(Object.fromEntries(new FormData(form)));
+    const json = JSON.stringify(Object.fromEntries(new FormData(form)));
     console.log(json);
     XHR.send(json);
 }
