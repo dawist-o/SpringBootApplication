@@ -8,11 +8,11 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-5">
-    <h1 th:text="${user.name}"/>
-    <h2 th:text="${user.email}"/>
+    <h2 th:text="${user.name}"/>
+    <h3 th:text="${user.email}"/>
     <br>
     <form action="/profile/logout" align="right" method="post">
-        <a th:href="'/profile/'+${user.id}+'/edit'" align="center" class="btn btn-success" th:text="'Edit book'"/>
+        <a href="/profile/edit" align="center" class="btn btn-success" th:text="'Change password'"/>
         <button class="btn btn-warning" type="submit">Logout</button>
     </form>
     <br>

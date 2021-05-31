@@ -12,7 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -63,5 +65,22 @@ public class AppUserService implements UserDetailsService {
     public int enableAppUser(String email) {
         log.info("In AppUserService method enableUserEmail: " + email);
         return appUserRepository.enableUserEmail(email);
+    }
+
+    public String changePassword(Principal principal, String pass, String newPass, String repeatedPass) {
+        if (!newPass.equals(repeatedPass))
+            return "New password doesnt equal repeated";
+
+        AppUser user = appUserRepository.findByEmail(principal.getName()).get();
+
+        if(!bCryptPasswordEncoder.matches(pass,user.getPassword())){
+            return "Invalid old password";
+        }
+
+        user.setPassword(bCryptPasswordEncoder.encode(newPass));
+        appUserRepository.save(user);
+
+        log.info("In AppUserService method changePassword: " + user);
+        return "";
     }
 }
