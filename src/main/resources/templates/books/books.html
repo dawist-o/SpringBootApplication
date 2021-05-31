@@ -4,14 +4,14 @@
     <title th:text="${title}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../mycss.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/mycss.css}">
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container mt-5">
+    <h1 th:text="${title}"/>
     <div sec:authorize="hasAuthority('ADMIN')" style="display: flex; justify-content: space-between">
-        <h1 th:text="${title}"/>
         <a type="button" class="btn btn-primary" href="add">Add book</a>
         <br>
     </div>

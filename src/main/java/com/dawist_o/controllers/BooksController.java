@@ -71,7 +71,7 @@ public class BooksController {
         if (!bookService.existsBookById(id)) return "redirect:/books";
 
         bookService.deleteBookById(id);
-        return "redirect:/all";
+        return "redirect:/book/all";
     }
 
     @GetMapping("/{id}/edit")
