@@ -27,7 +27,7 @@ public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public AppUser loadUserByUsername(String email) throws UsernameNotFoundException {
         log.info("In AppUserService method loadUserByUsername: " + email);
         return appUserRepository
                 .findByEmail(email)
