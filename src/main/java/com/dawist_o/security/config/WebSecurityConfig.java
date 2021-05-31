@@ -32,6 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/homepage").permitAll()
+                .antMatchers("/book/all").permitAll()
+                .antMatchers("/authors").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -41,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/homepage")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/profile/logout", "POST"))
                 .invalidateHttpSession(true)
                 .clearAuthentication(true);
     }
