@@ -1,14 +1,13 @@
 package com.dawist_o.dao.OrderDao;
 
-import com.dawist_o.model.Author;
-import com.dawist_o.model.Order;
 import com.dawist_o.model.Order;
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -54,5 +53,12 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public boolean existsById(Long id) {
         return session.get(Order.class, id) != null;
+    }
+
+    @Override
+    public List<Order> getUserOrders(Long userId) {
+        Query query = session.createQuery("from Order o where o.appUser.id = :paramName");
+        query.setParameter("paramName", userId);
+        return (List<Order>) query.getResultList();
     }
 }

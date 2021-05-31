@@ -1,33 +1,31 @@
 package com.dawist_o.service.OrderService;
 
-import com.dawist_o.dao.BookDao.BookDao;
 import com.dawist_o.dao.OrderDao.OrderDao;
 import com.dawist_o.model.Book;
 import com.dawist_o.model.Order;
+import com.dawist_o.model.user.AppUser;
+import com.dawist_o.service.BookService.BookService;
+import com.dawist_o.service.userService.AppUserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class OrderService implements OrderServiceInterface {
 
     private final OrderDao orderDao;
-
-    private final BookDao bookDao;
-
-    @Autowired
-    public OrderService(OrderDao orderDao, BookDao bookDao) {
-        this.orderDao = orderDao;
-        this.bookDao = bookDao;
-    }
+    private final BookService bookService;
+    private final AppUserService appUserService;
 
     @Override
     public Book getBookById(Long id) {
         log.info("In OrderService method getBookById: " + id);
-        return bookDao.getById(id);
+        return bookService.getBookById(id);
     }
 
     @Override
@@ -38,9 +36,15 @@ public class OrderService implements OrderServiceInterface {
 
 
     @Override
-    public List<Order> getAllOrders() {
-        log.info("In OrderService method getAllOrders:");
-        return orderDao.findAll();
+    public List<Order> getAllOrders(Principal principal) {
+        List<Order> orders;
+        AppUser appUser = appUserService.loadUserByUsername(principal.getName());
+        orders = switch (appUser.getAppUserRole()) {
+            case ADMIN -> orderDao.findAll();
+            default -> orderDao.getUserOrders(appUser.getId());
+        };
+        log.info("In OrderService method getAllOrders: " + orders);
+        return orders;
     }
 
     @Override

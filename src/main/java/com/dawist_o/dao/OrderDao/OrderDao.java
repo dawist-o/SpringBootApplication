@@ -16,4 +16,5 @@ public interface OrderDao {
 
     boolean existsById(Long id);
 
+    List<Order> getUserOrders(Long userId);
 }

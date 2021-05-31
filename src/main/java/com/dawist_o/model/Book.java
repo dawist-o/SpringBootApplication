@@ -39,6 +39,6 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany( cascade = CascadeType.PERSIST, mappedBy = "books")
     private List<Order> orders;
 }

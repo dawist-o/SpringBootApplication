@@ -2,11 +2,13 @@ package com.dawist_o.dao.BookDao;
 
 
 import com.dawist_o.model.Book;
+import com.dawist_o.model.Order;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -32,8 +34,12 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public void deleteById(Long id) {
-        Book load = session.get(Book.class, id);
-        session.remove(load);
+        Book book = session.get(Book.class, id);
+        //remove book from all orders
+        for (Order o : book.getOrders()) {
+            o.removeBook(book);
+        }
+        session.remove(book);
         session.flush();
     }
 

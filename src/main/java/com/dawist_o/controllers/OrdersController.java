@@ -1,9 +1,11 @@
 package com.dawist_o.controllers;
 
+import com.dawist_o.model.user.AppUser;
 import com.dawist_o.service.OrderService.OrderService;
 import com.dawist_o.model.Book;
 import com.dawist_o.model.Order;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.dawist_o.service.userService.AppUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,23 +13,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.LinkedList;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class OrdersController {
 
-    private final OrderService orderService;
-
-    @Autowired
-    public OrdersController(OrderService orderService) {
-        this.orderService = orderService;
-    }
+    private OrderService orderService;
+    private AppUserService appUserService;
 
     @GetMapping("/orders")
-    public String getAllorders(Model model) {
+    public String getAllOrders(Principal principal, Model model) {
         model.addAttribute("title", "Orders");
-        List<Order> allOrders = orderService.getAllOrders();
+        List<Order> allOrders = orderService.getAllOrders(principal);
         model.addAttribute("orders", allOrders);
         return "orders/orders";
     }
@@ -39,13 +39,18 @@ public class OrdersController {
     }
 
     @PostMapping("/create_order")
-    public String createOrderPost(@RequestParam String customerName, @RequestParam String address,
+    public String createOrderPost(Principal principal, @RequestParam String customerName, @RequestParam String address,
                                   @RequestParam String comment, @RequestParam String books) {
         String[] bookIds = books.trim().split(" ");
-        Order order = new Order(customerName, address, comment);
+        final AppUser appUser = appUserService.loadUserByUsername(principal.getName());
+        Order order = new Order(customerName, address, comment, appUser);
 
         for (String bookId : bookIds) {
-            order.addBook(orderService.getBookById(Long.parseLong(bookId)));
+            final Book bookById = orderService.getBookById(Long.parseLong(bookId));
+            if (bookById != null) {
+                System.out.println(bookById);
+                order.addBook(bookById);
+            }
         }
 
         orderService.save(order);
@@ -65,7 +70,7 @@ public class OrdersController {
     }
 
     @GetMapping("/order/{id}/edit")
-    public String editOrderPosr(@PathVariable(name = "id") Long id, Model model) {
+    public String editOrderPost(@PathVariable(name = "id") Long id, Model model) {
         if (!orderService.existsOrderById(id)) return "redirect:/orders";
 
         Order orderById = orderService.getOrderById(id);
@@ -77,7 +82,7 @@ public class OrdersController {
     }
 
     @PostMapping("/order/{id}/edit")
-    public String editOrderPosr(@PathVariable(name = "id") Long id, @RequestParam String customerName,
+    public String editOrderPost(@PathVariable(name = "id") Long id, @RequestParam String customerName,
                                 @RequestParam String address, @RequestParam String comment,
                                 @RequestParam String books) {
 
