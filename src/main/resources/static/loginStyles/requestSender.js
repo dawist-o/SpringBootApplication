@@ -5,8 +5,8 @@ function sendRequest(reguestUrl) {
     document.getElementById("auth-form").querySelectorAll("[required]").forEach(function (i) {
         if (!allAreFilled) return;
         if (!i.value) allAreFilled = false;
-        console.log(i);
     })
+    allAreFilled = document.getElementById("agree-term").checked;
     if (allAreFilled) {
         const password = document.getElementById('pass');
         const passwordConfirm = document.getElementById('re_pass');
@@ -24,8 +24,6 @@ function sendRequest(reguestUrl) {
         console.log(json);
         XHR.send(json);
 
-    } else {
-        alert('Fill all the fields');
     }
 }
 

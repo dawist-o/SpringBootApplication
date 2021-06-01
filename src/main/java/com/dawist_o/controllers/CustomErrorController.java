@@ -1,22 +1,16 @@
 package com.dawist_o.controllers;
 
-import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.thymeleaf.TemplateEngine;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@AllArgsConstructor
 public class CustomErrorController implements ErrorController {
-
-    private final TemplateEngine templateEngine;
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
