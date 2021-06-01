@@ -25,6 +25,7 @@ public class AppUserService implements UserDetailsService {
             "user with email %s not found";
 
     private final AppUserRepository appUserRepository;
+    //TODO replace token service into registration
     private final ConfirmationTokenService confirmationTokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
