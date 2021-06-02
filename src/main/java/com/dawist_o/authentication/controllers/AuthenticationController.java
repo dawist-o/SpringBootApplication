@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,20 +21,21 @@ public class AuthenticationController {
     private final RegistrationService registrationService;
 
     @PostMapping("register")
-    public String register(HttpServletRequest httpRequest , @RequestBody RegistrationRequest request) throws Exception {
-        registrationService.register(httpRequest,request);
+    public String registerUrlData(@RequestParam String name, @RequestParam String email,
+                                  @RequestParam String pass, @RequestParam String re_pass,
+                                  HttpServletRequest httpRequest) {
+        RegistrationRequest request = new RegistrationRequest(name, email, pass, re_pass);
+        registrationService.register(httpRequest, request);
         return "redirect:/auth/login";
     }
 
     @GetMapping("register")
     public String getRegister(Model model) {
-        System.out.println("register");
         return "register";
     }
 
     @GetMapping("login")
     public String login(Model model) {
-        System.out.println("login");
         return "login";
     }
 

@@ -1,5 +1,6 @@
 package com.dawist_o.service.userService;
 
+import com.dawist_o.authentication.exceptions.InvalidRegistrationException;
 import com.dawist_o.authentication.token.ConfirmationToken;
 import com.dawist_o.authentication.token.ConfirmationTokenService;
 import com.dawist_o.dao.appUser.AppUserRepository;
@@ -45,7 +46,7 @@ public class AppUserService implements UserDetailsService {
                 .isPresent();
 
         if (userExists) {
-            throw new IllegalStateException("email already taken");
+            throw new InvalidRegistrationException("Email is already taken");
         }
 
         //encode password for store in database

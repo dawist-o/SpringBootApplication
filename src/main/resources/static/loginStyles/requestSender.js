@@ -8,14 +8,7 @@ function sendRequest(reguestUrl) {
     })
     allAreFilled = document.getElementById("agree-term").checked;
     if (allAreFilled) {
-        const password = document.getElementById('pass');
-        const passwordConfirm = document.getElementById('re_pass');
-
-        if (password.value != passwordConfirm.value) {
-            alert('Repeated pass should equal main');
-            return;
-        }
-
+        console.log("sending");
         const XHR = new XMLHttpRequest();
         const url = window.location.protocol + "//" + window.location.host + "/auth/" + reguestUrl;
         XHR.open('POST', url, true);

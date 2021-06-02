@@ -1,8 +1,8 @@
 package com.dawist_o.authentication.registration;
 
 import com.dawist_o.authentication.EmailValidator;
+import com.dawist_o.authentication.exceptions.InvalidRegistrationException;
 import com.dawist_o.authentication.mailSender.MailSender;
-import com.dawist_o.authentication.mailSender.MailService;
 import com.dawist_o.authentication.token.ConfirmationToken;
 import com.dawist_o.authentication.token.ConfirmationTokenService;
 import com.dawist_o.model.user.AppUser;
@@ -25,11 +25,14 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final MailSender mailService;
 
-    public String register(HttpServletRequest httpRequest, RegistrationRequest request) {
+    public String register(HttpServletRequest httpRequest, RegistrationRequest request) throws IllegalStateException{
         boolean isValidEmail = emailValidator.test(request.getEmail());
 
         if (!isValidEmail) {
-            throw new IllegalStateException("email not valid");
+            throw new InvalidRegistrationException("Email is not valid");
+        }
+        if(request.getPass().equals(request.getRe_pass())){
+            throw new InvalidRegistrationException("Both passwords should be equal");
         }
 
         String token = appUserService.signUpUser(new AppUser(

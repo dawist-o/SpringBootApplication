@@ -20,7 +20,7 @@
             <div class="signup-content">
                 <div class="signup-form">
                     <h2 class="form-title">Sign up</h2>
-                    <form class="register-form" id="auth-form">
+                    <form class="register-form" action="register" method="POST" id="auth-form">
                         <div class="form-group">
                             <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                             <input required type="text" name="name" id="name" placeholder="Your Name"/>
@@ -37,6 +37,7 @@
                             <label for="re_pass"><i class="zmdi zmdi-lock-outline"></i></label>
                             <input required type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
                         </div>
+                        <p id="err-msg" th:text="${errMsg}" style="color: red;" class="error"></p>
                         <div class="form-group" style="display: flex">
                             <input required type="checkbox" style="display: block; margin-top: 10px" name="agree-term" id="agree-term" class="agree-term">
                             <label for="agree-term" class="label-agree-term">I agree all statements in
@@ -44,7 +45,7 @@
                             </label>
                         </div>
                         <div class="form-group form-button">
-                            <input onclick="sendRequest('register')" type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                         </div>
                     </form>
                 </div>
