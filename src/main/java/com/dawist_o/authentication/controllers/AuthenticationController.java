@@ -23,10 +23,11 @@ public class AuthenticationController {
     @PostMapping("register")
     public String registerUrlData(@RequestParam String name, @RequestParam String email,
                                   @RequestParam String pass, @RequestParam String re_pass,
-                                  HttpServletRequest httpRequest) {
+                                  HttpServletRequest httpRequest, Model model) {
         RegistrationRequest request = new RegistrationRequest(name, email, pass, re_pass);
         registrationService.register(httpRequest, request);
-        return "redirect:/auth/login";
+        model.addAttribute("name", name);
+        return "emails/successRegister";
     }
 
     @GetMapping("register")
