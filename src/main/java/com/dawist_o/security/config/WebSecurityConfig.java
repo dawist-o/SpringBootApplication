@@ -1,10 +1,10 @@
 package com.dawist_o.security.config;
 
-import com.dawist_o.model.user.AppUserRole;
 import com.dawist_o.service.userService.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,6 +19,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableAsync
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AppUserService appUserService;
