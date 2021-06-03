@@ -10,8 +10,8 @@ import com.dawist_o.model.user.AppUserRole;
 import com.dawist_o.service.userService.AppUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -31,7 +31,7 @@ public class RegistrationService {
         if (!isValidEmail) {
             throw new InvalidRegistrationException("Email is not valid");
         }
-        if(request.getPass().equals(request.getRe_pass())){
+        if(!request.getPass().equals(request.getRe_pass())){
             throw new InvalidRegistrationException("Both passwords should be equal");
         }
 
@@ -50,6 +50,7 @@ public class RegistrationService {
         return link;
     }
 
+    @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService
                 .getToken(token)
